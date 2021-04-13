@@ -4,12 +4,4 @@ tasks:
   - name: Running MongoDB
     command: mkdir -p data && mongod --dbpath data
   - name: Install nodemon
-    command: npm i -g nodemon
-  - name: Install http && axios && morgan && cors && express
-    command: npm i --save http axios morgan cors express
-  - name: Install body parser
-    command: npm install body-parser
-  - name: Install mongoose
-    command: npm install mongoose
-  - name: Run 
-    command: npm start
+    command: npm i -g nodemon && npm start
