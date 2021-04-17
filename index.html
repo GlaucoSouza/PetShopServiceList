@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+
+    <title>
+        Pet Shop Dublin
+    </title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark"> <button class="navbar-toggler" type="button"
+            data-target="#navigation"> <span class="navbar-toggler-icon"></span> </button>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a href="index.html" class="nav-link"> Home </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pettable.html" class="nav-link">
+                        Pet Table
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="card p-4 p-md-4 my-4 mx-3 mx-md-0 text-white">
+                    <h3>Pet Shop Dublin Service List</h3>
+                    <p>Enter Pet details</p>
+                    <form class="container" method="POST" action="/">
+
+                        <!-- dropdown selection of the options of services of the pet shop
+                        <div>
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                <option selected>Choose...</option>
+                                <option value="1">Grooming</option>
+                                <option value="2">Vaccinate</option>
+                                <option value="3">Castrate</option>
+                                <option value="3">Blood Test + Chipping</option>
+                            </select>
+                        </div> -->
+                        <div class="form-group"> <label> Pet Name </label> <input name="petname" type="text" class="form-control">
+                        </div>
+                        <div class="form-group"> <label> Dog or Cat </label> <input name="animaltype" type="text"class="form-control">
+                        </div>
+                        <div class="form-group" placeholder="Male or Female"> <label> Male or Female </label> <input name="gender" type="text"  class="form-control">
+                        </div>
+                        <div class="form-group"> <label> Owner Name </label> <input name="ownername" type="text" class="form-control">
+                        </div>
+                        <div class="form-group"> <label>Enter your email:</label>
+                        <input name="email" type="text" class="form-control" >
+                        </div>
+                        <button type="submit" class="col-12 btn btn-primary">submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

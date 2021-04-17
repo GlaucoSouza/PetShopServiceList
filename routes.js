@@ -1,21 +1,26 @@
 const express = require('express'),
 router = express.Router();
 
-// var itemCtrl = require('./item-controller'),
-var userCtrl = require('./user-controller');
+var registerCtrl = require('./register-controller');
 
-// router.get('/hello', itemCtrl.getWorld);
-// router.get('/hello/:foo/:bar', itemCtrl.getWorldParams);
-// router.post('/hello', itemCtrl.postWorld);
+//create a new registration to the service list
+router.post('/', registerCtrl.createRegister);
 
-router.post('/users', userCtrl.createUser);
-router.get('/users', userCtrl.getUsers);
-router.get('/users/:id', userCtrl.getUser);
-router.put('/users/:id', userCtrl.updateUser);
-router.delete('/users/:id', userCtrl.deleteUser);
+//retrieve all registration
+router.get('/pettable', registerCtrl.getRegisters);
+
+// get a specific registration
+router.get('/pettable/:id', registerCtrl.getRegister);
+
+// update a registration
+router.put('/pettable/:id', registerCtrl.updateRegister);
+
+// delete a registration
+router.delete('/pettable/:id', registerCtrl.deleteRegister);
+
+
 
 module.exports.UPLOAD_PATH = "uploads";
-
 var multer = require("multer");
 var upload = multer({dest: module.exports.UPLOAD_PATH});
 var imageCtrl = require('./image-controller');
