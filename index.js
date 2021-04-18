@@ -8,51 +8,52 @@ path = require('path'),
 dotenv = require("dotenv");
 dotenv.config();
 var app = express();
+require('./register')
 
 //my db credentials are in a .env file stored with the name of dbURI
 const dbURI = process.env.DB_URL;
+
 app.use(bodyParser.urlencoded({extended: true}))
-
-
+app.use(express.static(path.join(__dirname, "/")));
+app.use(require('./routes'));
 
     //creation of the registration schema
 const registrationSchema = {
     petname: String,
     animaltype: String,
-    gender: { 
-        type: String,
-        enum: ['MALE', 'FEMALE']
-    },
-    ownername: String,
-    email: { type: String, unique: true, lowercase: true},
+    // gender: { 
+    //     type: String, lowercase: true,
+    //     enum: ['MALE', 'FEMALE']
+    // },
+    // ownername: String,
+    // email: { type: String, unique: true, lowercase: true},
 }
 
-const Registration = mongoose.model("Registration", registrationSchema)
-
-// app.use(express.static(path.join(__dirname, "view")));
-app.get("/", (req, res) =>{
-    res.sendFile(__dirname + "/index.html")
-})
 
 // app.get('/', (req, res) => {
 //     res.render('/index')
 // })
 
-// app.use(bodyParser.json());
-// app.use(logger('tiny'));
-// app.use(require('./routes'));
+
+// const Registration = mongoose.model("Registration", registrationSchema)
+
+app.get("/", (req, res) =>{
+    res.sendFile(__dirname + "/index.html")
+})
 
 app.post("/", (req, res)=>{
-    let newRegistration = new Registration({
+    let newRegistration = new Register({
         petname: req.body.petname,
         animaltype: req.body.animaltype,
-        gender: req.body.gender,
-        ownername: req.body.ownername,
-        phone: req.body.phone
+        // gender: req.body.gender,
+        // ownername: req.body.ownername,
+        // email: req.body.email
     })
     newRegistration.save()
     res.redirect('/')
 })
+
+// const Registration = mongoose.model("Registration", registrationSchema)
 
 //db connection
 mongoose.connect(dbURI, {useNewUrlParser: true}, {useUnifiedTopology: true})
@@ -60,5 +61,5 @@ mongoose.connect(dbURI, {useNewUrlParser: true}, {useUnifiedTopology: true})
     .catch((err) => console.log(err));
 
 app.listen(8000, ()=>{
-    console.log("server is running on port 5050");
+    console.log("server is running on port 8000");
 })
