@@ -1,16 +1,13 @@
 var mongoose = require('mongoose');
 
+    //creation of the registration schema
 const registrationSchema = {
+    service: String,
     petname: String,
-    animaltype: String
-    // gender: { 
-    //     type: String,
-    //     enum: ['MALE', 'FEMALE']
-    // },
-    // ownername: String,
-    // email: { type: String, unique: true, lowercase: true},
+    animaltype: String,
+    ownername: String,
+    email: { type: String, unique: true, lowercase: true},
 }
 
-const Registration = mongoose.model("Register", registrationSchema)
-
-// module.exports = mongoose.model('Register', registrationSchema);
+module.exports = mongoose.model('Register', registrationSchema);
+// const Register = mongoose.model("Register", registrationSchema)
