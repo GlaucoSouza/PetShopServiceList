@@ -1,74 +1,47 @@
-const http = require('http'),
-logger = require('morgan'),
-cors = require('cors'),
-express = require('express'),
-bodyParser = require('body-parser'),
-mongoose = require('mongoose'),
-path = require('path'),
-ejs = require('ejs'),
-dotenv = require("dotenv");
-dotenv.config();
-var app = express();
-
-// app.use(require('./routes'));
-
-app.use(bodyParser.urlencoded({extended: true}))
-
-// app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static('public'));
-app.use('/css', express.static(__dirname + 'public/css'))
-app.use('/js', express.static(__dirname + 'public/js'))
+const http = require('http')
+const logger = require('morgan')
+const express = require('express')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const ejs = require('ejs')
+const methodOverride = require('method-override')
+const Registration = require('./models/register')
+const dotenv = require("dotenv")
+dotenv.config()
+var app = express()
 
 //set views
 app.set('views', __dirname + '/views')
 app.set("view engine", "ejs");
 
+//parsing the data to json
+app.use(bodyParser.urlencoded({extended: true}))
+
+//route 
+const listRoute = require('./routes')
+
+app.use((req, res, next) => {
+       res.locals.path = req.path
+       next()
+})
+
+
+//it tells where my files are, in the views folder
+app.use(express.static('views'));
+app.use(methodOverride('_omethod'))
+app.use(express.urlencoded({ extended: false})) 
+
+
+
 app.get('', (req, res) =>{
-    res.sendFile(__dirname + '/views/index.html')
+    res.render('index')
 })
 
-// app.get('/pettable', (req,res)=>{
-//     res.render('pettable', {})
-// })
-
-    //creation of the registration schema
-var registrationSchema = new mongoose.Schema({
-    service: String,
-    petname: String,
-    animaltype: String,
-    ownername: String,
-    email: { type: String, unique: true, lowercase: true},
-})
-
-var serviceList = mongoose.model("pet_shop_service_list", registrationSchema)
-
-//POST method sends the schema filled with the inserted information by the user
-app.post("/", (req, res, next)=>{
-    let newRegister = new serviceList({
-        service: req.body.service,
-        petname: req.body.petname,
-        animaltype: req.body.animaltype,
-        gender: req.body.gender,
-        ownername: req.body.ownername,
-        email: req.body.email
-    })
-    newRegister.save((err, newRegister)=>{
-        if (err){
-            return next(err)
-        }
-        // res.json(201,newRegister)
-    })
-    res.redirect('/')
-})
-
-app.get('/pettable', (req, res)=>{
-    serviceList.find({}, function(err, services){
-        if(err) res.json(err)
-        res.render('pettable', {
-            servicesList : services
-        })
-
-    })
+//render the pettable file to the page /pettable
+app.get('/pettable', async (req, res)=>{
+    const registration = await Registration.find();
+    //renders the table to the page
+    res.render('pettable', {registration: registration})
 })
 
 //listen the port number 8000
@@ -83,3 +56,5 @@ const dbURI = process.env.DB_URL;
 mongoose.connect(dbURI, {useNewUrlParser: true}, {useUnifiedTopology: true})
     .then((result) => console.log('connected to db'))
     .catch((err) => console.log(err));
+
+app.use('routes', listRoute)

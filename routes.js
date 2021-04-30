@@ -9,13 +9,12 @@ router.get('/'), (req, res) => {
 }
 
 //post method to create a new record
-router.post('/', async (req, res, next) => {
+router.post('/',  (req, res) => {
     req.registration = new Registration()
-    next()
-}, AddToList('/'))
+}, AddToList('pettable'))
 
 //function fills the schema with the inserted information by the user
-function AddToList(path) {
+function AddToList(parameter) {
     return async (req, res) => {
         let registration = req.list;
         registration.service = req.body.service,
@@ -33,6 +32,32 @@ function AddToList(path) {
         }
     }
 }
+
+// method to update a record in the collection
+router.put('/:id', async (req, res) => { 
+  req.registration = await Registration.findById(req.params.id)
+ 
+}, AddToList('edit')) // calling the function to edit the document
+
+
+// //POST method sends the schema filled with the inserted information by the user
+// router.post("/", (req, res, next)=>{
+//     let newRegister = new Registration({
+//         service: req.body.service,
+//         petname: req.body.petname,
+//         animaltype: req.body.animaltype,
+//         gender: req.body.gender,
+//         ownername: req.body.ownername,
+//         email: req.body.email
+//     })
+//     newRegister.save((err, newRegister)=>{
+//         if (err){
+//             return next(err)
+//         }
+//         // res.json(201,newRegister)
+//     })
+//     res.redirect('/')
+// })
 
 
 //delete method to delete a service from the list
