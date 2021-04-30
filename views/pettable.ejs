@@ -52,7 +52,7 @@
                     <td><%= list.ownername %></td>
                     <td><%= list.email %></td>
                     <td>
-                        <form action="/routes/<%= list.id %>?_omethod=DELETE" method="POST" class="d-inline">
+                        <form action="/routes/:id/<%= list.id %>?_omethod=DELETE" method="POST" class="d-inline">
                             <button class="btn btn-danger" style="margin-left: 5px;" type="submit"><i
                                     class="fa fa-trash" style="font-size: 15px;">
                                 </i>Delete</button>
