@@ -1,39 +1,44 @@
-// const express = require('express');
-// router = express.Router();
-// const mongoose = require("mongoose")
-// var app = express();
+const express = require('express');
+const Registration = require('./models/register')
+const router = express.Router();
 
-// // var registerCtrl = require('./register-controller').createRegister;
-// require('./register');
-// require('./index');
 
-// // //create a new registration to the service list
-// // router.post('/', registerCtrl.createRegister);
+//renders the static page index when on home page "/"
+router.get('/'), (req, res) => {
+    res.render('index', { registration: new Registration() })
+}
 
-//     //creation of the registration schema
-// const registrationSchema = mongoose.Schema( {
-//     service: String,
-//     petname: String,
-//     animaltype: String,
-//     ownername: String,
-//     email: { type: String, unique: true, lowercase: true},
-// })
+//post method to create a new record
+router.post('/', async (req, res, next) => {
+    req.registration = new Registration()
+    next()
+}, AddToList('/'))
 
-// const Registration = mongoose.model("petshopservice", registrationSchema);
-// // module.exports = mongoose.model('petshopservice', registrationSchema);
+//function fills the schema with the inserted information by the user
+function AddToList(path) {
+    return async (req, res) => {
+        let registration = req.list;
+        registration.service = req.body.service,
+            registration.petname = req.body.petname,
+            registration.animaltype = req.body.animaltype,
+            registration.gender = req.body.gender,
+            registration.ownername = req.body.ownername,
+            registration.email = req.body.email
+        try {
+            //save the information to the database
+            registration = await registration.save()
+            res.redirect('/')
+        } catch (err) {
+            return res.status(400).json({ message: "Bad request" })
+        }
+    }
+}
 
-// //POST method sends the schema filled with the inserted information by the user
-// app.post("/", (req, res)=>{
-//     let newRegister = new Registration({
-//         service: req.body.service,
-//         petname: req.body.petname,
-//         animaltype: req.body.animaltype,
-//         gender: req.body.gender,
-//         ownername: req.body.ownername,
-//         email: req.body.email
-//     })
-//     newRegister.save()
-//     res.redirect('/')
-// })
 
-// module.exports = router;
+//delete method to delete a service from the list
+router.delete('/:id', async (req, res) =>{
+    await Registration.findByIdAndDelete(req.params.id)
+    res.redirect('/pettable')
+})
+
+module.exports = router
