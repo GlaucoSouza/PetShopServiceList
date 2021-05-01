@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="js/pettable.js">
     <title>Pet Shop Dublin
-
-
     </title>
 </head>
 
@@ -52,14 +50,13 @@
                     <td><%= list.ownername %></td>
                     <td><%= list.email %></td>
                     <td>
-                        <form action="/routes/:id/<%= list.id %>?_omethod=DELETE" method="POST" class="d-inline">
-                            <button class="btn btn-danger" style="margin-left: 5px;" type="submit"><i
-                                    class="fa fa-trash" style="font-size: 15px;">
-                                </i>Delete</button>
+                        <form action="/pettable/<%= list.id %>?_method=delete" method="POST" class="d-inline">
+                            <button class="btn btn-danger" style="margin-left: 5px;" type="submit">Delete</button>
                         </form>
                     </td>
                 </tr>
                 <% }) %>
+
             </tbody>
         </table>
     </div>
