@@ -29,13 +29,42 @@ app.use((req, res, next) => {
 //it tells where my files are, in the views folder
 app.use(express.static('views'));
 app.use(methodOverride('_omethod'))
-app.use(express.urlencoded({ extended: false})) 
+app.use(express.urlencoded({ extended: true})) 
+
+app.use(methodOverride("_method", {
+  methods: ["POST", "GET"]
+}));
 
 
 
 app.get('', (req, res) =>{
     res.render('index')
 })
+
+
+
+//POST method sends the schema filled with the inserted information by the user
+app.post("/", (req, res, next)=>{
+    let newRegister = new Registration({
+        service: req.body.service,
+        petname: req.body.petname,
+        animaltype: req.body.animaltype,
+        gender: req.body.gender,
+        ownername: req.body.ownername,
+        email: req.body.email
+    })
+    newRegister.save((err, newRegister)=>{
+        if (err){
+            return next(err)
+        }
+        //  res.json(201,newRegister)
+        // res.status(201).json(newRegister)
+    })
+    res.redirect('/')
+})
+
+
+
 
 //render the pettable file to the page /pettable
 app.get('/pettable', async (req, res)=>{
@@ -53,7 +82,11 @@ app.listen(8000, ()=>{
 const dbURI = process.env.DB_URL;
 
 //db connection using the dbURI credentials
-mongoose.connect(dbURI, {useNewUrlParser: true}, {useUnifiedTopology: true})
+mongoose.connect(dbURI,  {
+    useUnifiedTopology: true
+}, {
+    useNewUrlParser: true
+})
     .then((result) => console.log('connected to db'))
     .catch((err) => console.log(err));
 
