@@ -15,13 +15,6 @@ app.set("view engine", "ejs");
 //parsing the data to json
 app.use(bodyParser.urlencoded({extended: true}))
 
-
-
-// app.use((req, res, next) => {
-//        res.locals.path = req.path
-//        next()
-// })
-
 //it tells where my files are, in the views folder
 app.use(express.static('views'));
 
@@ -30,6 +23,7 @@ app.use(express.static('views'));
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: false})) 
 
+//renders the index.ejs file on the endpoint /
 app.get('/', (req, res) =>{
     res.render('index')
 })
@@ -65,9 +59,9 @@ app.use('/pettable', listRoute)
 var port = process.env.PORT || 8000;
 
 //listen the port number 8000
-app.listen(port, ()=>{
-    console.log("server is running on port 8000");
-})
+app.listen(port, function(err){
+    console.log('Listening on port: ' + port);
+});
 
 //my db credentials are in a .env file stored with the name of dbURI
 const dbURI = process.env.DB_URL;
