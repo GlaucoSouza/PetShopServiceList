@@ -7,7 +7,6 @@ const listRoute = require('./routes/services')
 const dotenv = require("dotenv")
 dotenv.config()
 var app = express()
-app.use('/pettable', listRoute)
 
 
 //set views
@@ -55,6 +54,9 @@ app.get('/pettable', async (req, res)=>{
     //renders the table to the page
     res.render('pettable', {registration: registration})
 })
+
+app.use('/pettable', listRoute)
+
 
 
 var port = process.env.PORT || 8000;
