@@ -62,8 +62,10 @@ app.get('/pettable', async (req, res)=>{
 
 app.use('/pettable', listRoute)
 
+var port = process.env.PORT || 8000;
+
 //listen the port number 8000
-app.listen(8000, ()=>{
+app.listen(port, ()=>{
     console.log("server is running on port 8000");
 })
 
