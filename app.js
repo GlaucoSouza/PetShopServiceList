@@ -7,6 +7,8 @@ const listRoute = require('./routes/services')
 const dotenv = require("dotenv")
 dotenv.config()
 var app = express()
+app.use('/pettable', listRoute)
+
 
 //set views
 // app.set('views', __dirname + '/views')
@@ -54,16 +56,16 @@ app.get('/pettable', async (req, res)=>{
     res.render('pettable', {registration: registration})
 })
 
-app.use('/pettable', listRoute)
 
 var port = process.env.PORT || 8000;
 
-//listen the port number 8000
+//listen the port number 8000 if localhost
+//but Heroku chooses the port
 app.listen(port, function(err){
     console.log('Listening on port: ' + port);
 });
 
-//my db credentials are in a .env file stored with the name of dbURI
+//my db credentials are in Heroku stored into the config vars with the name of dbURI
 const dbURI = process.env.DB_URL;
 
 //db connection using the dbURI credentials
