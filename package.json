@@ -4,8 +4,8 @@
   "description": "Pet Shop service list website",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "test": "nodemon app.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
